@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PLAY-LISTISMO | Retro TV</title>
+    <title>PLAY-LISTISMO | 90s TV Experience</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,10 +16,12 @@
         <div class="tv-set">
             <div class="tv-casing-top">
                 <span class="brand-badge">SONY_MTV</span>
+                <div class="vent-slots">||||||||||||</div>
             </div>
             
             <div class="tv-screen-bezel">
                 <div class="tv-crt-glass">
+                    
                     <div id="player"></div>
                     
                     <div class="crt-scanlines"></div>
@@ -27,10 +29,20 @@
 
                     <div id="video-credits" class="credits-box">
                         <div class="credits-content">
-                            <div class="credit-group slide-1"><span id="artist-name">Artist</span></div>
-                            <div class="credit-group slide-2"><span id="song-name">Song</span></div>
-                            <div class="credit-group slide-3"><span id="album-name" class="detail">Album</span></div>
-                            <div class="credit-group slide-4"><span id="director-name" class="detail">Director</span> | <span id="release-year" class="detail">Year</span></div>
+                            <div class="credit-group slide-1">
+                                <span id="artist-name">Artist Name</span>
+                            </div>
+                            <div class="credit-group slide-2">
+                                <span id="song-name">Song Title</span>
+                            </div>
+                            <div class="credit-group slide-3">
+                                <span id="album-name" class="detail">Album Name</span>
+                            </div>
+                            <div class="credit-group slide-4">
+                                <span id="director-name" class="detail">Dir. Name</span>
+                                <span class="separator">|</span>
+                                <span id="release-year" class="detail">199X</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -38,9 +50,12 @@
 
             <div class="tv-casing-bottom">
                 <div class="speaker-grill"></div>
-                <div class="power-led active"></div>
-                <div class="manual-buttons">
-                    <div class="btn"></div><div class="btn"></div><div class="btn"></div>
+                <div class="controls-area">
+                    <div class="power-led active"></div>
+                    <div class="manual-buttons">
+                        <div class="btn"></div><div class="btn"></div><div class="btn"></div>
+                    </div>
+                    <div class="power-btn" title="Power"></div>
                 </div>
             </div>
         </div>
@@ -63,8 +78,8 @@
                 </div>
 
                 <div class="remote-buttons-grid">
-                    <button class="remote-btn vol" onclick="alert('Volume controlado pelo player!')">VOL +</button>
-                    <button class="remote-btn vol" onclick="alert('Volume controlado pelo player!')">VOL -</button>
+                    <button class="remote-btn vol" onclick="alert('Use os controles do player na tela para volume!')">VOL +</button>
+                    <button class="remote-btn vol" onclick="alert('Use os controles do player na tela para volume!')">VOL -</button>
                     <button class="remote-btn ch">CH ▲</button>
                     <button class="remote-btn ch">CH ▼</button>
                 </div>
