@@ -3,44 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Play-Listismo | Music Player</title>
+    <title>PLAY-LISTISMO | 90s Broadcast</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Google Fonts importado do arquivo wixDefaultCustomElement.web.js -->
-    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;700&display=swap" rel="stylesheet">
-<script type="importmap">
-{
-  "imports": {
-    "wix-data": "https://aistudiocdn.com/wix-data@^0.0.1-security"
-  }
-}
-</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=VT323&family=Jost:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <div class="app-container">
-        <!-- Navegação / Seletor de Playlist -->
-        <header class="top-bar">
-            <div class="logo">PLAY-LISTISMO</div>
-            <select id="playlist-selector">
-                <option value="folkzone">Folk Zone</option>
-                <option value="trip_hop">Trip Hop Zone</option>
-                <option value="mid_pop">Mid-Pop Brasil</option>
-                <option value="sepia">Sepia Zone</option>
-            </select>
-        </header>
-
-        <!-- Container do Vídeo -->
+        
         <div class="video-wrapper">
             <div id="player"></div>
         </div>
 
-        <!-- Overlay de Créditos (Estilo MTV) -->
-        <div id="video-credits" class="credits-overlay">
-            <div class="credit-line"><span class="icon">🎤</span> <span id="artist-name">Artist</span></div>
-            <div class="credit-line"><span class="icon">🎶</span> <span id="song-name">Song</span></div>
-            <div class="credit-line"><span class="icon">💿</span> <span id="album-name">Album</span></div>
-            <div class="credit-line"><span class="icon">📅</span> <span id="release-year">Year</span></div>
-            <div class="credit-line"><span class="icon">🎬︎</span> <span id="director-name">Director</span></div>
+        <div class="crt-overlay"></div>
+        <div class="scanlines"></div>
+
+        <div class="ui-layer">
+            
+            <header class="top-bar">
+                <div class="brand-container">
+                    <div class="logo-glitch" data-text="PLAY-LISTISMO">PLAY-LISTISMO</div>
+                    <div class="live-indicator">● LIVE</div>
+                </div>
+                
+                <div class="channel-selector-wrapper">
+                    <label for="playlist-selector" class="channel-label">CHANNEL:</label>
+                    <select id="playlist-selector">
+                        <option value="folkzone">01. FOLK ZONE</option>
+                        <option value="trip_hop">02. TRIP HOP</option>
+                        <option value="mid_pop">03. MID-POP BR</option>
+                        <option value="sepia">04. SEPIA TV</option>
+                    </select>
+                </div>
+            </header>
+
+            <div id="video-credits" class="credits-box">
+                <div class="credits-strip"></div>
+                <div class="credits-content">
+                    <div class="credit-group slide-1">
+                        <span id="artist-name">Artist Name</span>
+                    </div>
+                    <div class="credit-group slide-2">
+                        <span id="song-name">Song Title</span>
+                    </div>
+                    <div class="credit-group slide-3">
+                        <span id="album-name" class="detail">Album Title</span>
+                    </div>
+                    <div class="credit-group slide-4">
+                        <span id="director-name" class="detail">Dir: Director Name</span>
+                        <span class="separator">|</span>
+                        <span id="release-year" class="detail">Year</span>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
