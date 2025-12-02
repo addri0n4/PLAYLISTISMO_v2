@@ -1,102 +1,124 @@
-/* Base styles managed by Tailwind, specific overrides here */
+/* Reset e Base */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    color: #fff;
+    font-family: 'Jost', sans-serif;
+    overflow: hidden;
+}
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #1e293b; 
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #475569; 
+.app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* Header / Seletor */
+.top-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+#playlist-selector {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: white;
+    padding: 5px 10px;
     border-radius: 4px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #64748b; 
-  }
-  
-  /* Markdown Preview Styles */
-  .markdown-body h1 { 
-    font-size: 1.875rem; 
-    font-weight: 700; 
-    margin-bottom: 1rem; 
-    margin-top: 1.5rem; 
-    border-bottom: 1px solid #334155; 
-    padding-bottom: 0.5rem; 
-    color: #f8fafc;
-  }
-  
-  .markdown-body h2 { 
-    font-size: 1.5rem; 
-    font-weight: 600; 
-    margin-bottom: 0.75rem; 
-    margin-top: 1.25rem; 
-    color: #a5b4fc; 
-  }
-  
-  .markdown-body h3 { 
-    font-size: 1.25rem; 
-    font-weight: 500; 
-    margin-bottom: 0.5rem; 
-    margin-top: 1rem; 
-    color: #c7d2fe; 
-  }
-  
-  .markdown-body p { 
-    margin-bottom: 0.75rem; 
-    line-height: 1.625; 
-    color: #cbd5e1; 
-  }
-  
-  .markdown-body ul, .markdown-body ol { 
-    list-style-type: disc; 
-    padding-left: 1.5rem; 
-    margin-bottom: 0.75rem; 
-    color: #cbd5e1; 
-  }
-  
-  .markdown-body li { 
-    margin-bottom: 0.25rem; 
-  }
-  
-  .markdown-body code { 
-    background-color: #1e293b; 
-    padding: 0.2rem 0.4rem; 
-    border-radius: 0.25rem; 
-    font-family: 'JetBrains Mono', monospace; 
-    font-size: 0.875em; 
-    color: #e2e8f0; 
-  }
-  
-  .markdown-body pre { 
-    background-color: #0f172a; 
-    padding: 1rem; 
-    border-radius: 0.5rem; 
-    overflow-x: auto; 
-    margin-bottom: 1rem; 
-    border: 1px solid #1e293b; 
-  }
-  
-  .markdown-body pre code { 
-    background-color: transparent; 
-    padding: 0; 
-    color: #e2e8f0; 
-  }
-  
-  .markdown-body blockquote { 
-    border-left: 4px solid #6366f1; 
-    padding-left: 1rem; 
-    color: #94a3b8; 
-    font-style: italic; 
-    background: rgba(30, 41, 59, 0.5); 
-    padding-top: 0.5rem; 
-    padding-bottom: 0.5rem; 
-    border-radius: 0 0.25rem 0.25rem 0; 
-    margin-bottom: 1rem; 
-  }
+    font-family: 'Jost', sans-serif;
+    cursor: pointer;
+}
 
-  .markdown-body strong, .markdown-body b {
-    color: #e2e8f0;
-    font-weight: 600;
-  }
+#playlist-selector option {
+    background-color: #000;
+}
+
+/* Video Player Wrapper */
+.video-wrapper {
+    flex-grow: 1;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#player {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Créditos Overlay - Baseado no CSS original do projeto Wix */
+.credits-overlay {
+    position: fixed;
+    bottom: 40px;
+    left: 40px;
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+    font-size: 18px;
+    line-height: 1.6;
+    opacity: 0; /* Começa invisível */
+    transition: opacity 1s ease-in-out;
+    background: rgba(0,0,0,0.3); /* Ligeiro fundo para legibilidade */
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #fff;
+    pointer-events: none; /* Permite clicar no vídeo através dos créditos */
+    z-index: 20;
+}
+
+.credits-overlay.visible {
+    opacity: 1;
+}
+
+.credit-line {
+    margin-bottom: 4px;
+}
+
+.credit-line span {
+    font-weight: 700;
+}
+
+.credit-line span.light {
+    font-weight: 300;
+}
+
+.icon {
+    display: inline-block;
+    width: 25px;
+    text-align: center;
+    margin-right: 5px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .credits-overlay {
+        left: 10px;
+        bottom: 20px;
+        font-size: 14px;
+        padding: 10px;
+    }
+}

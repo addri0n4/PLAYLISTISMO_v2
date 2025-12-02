@@ -1,5 +1,5 @@
 {
-  "name": "play_listismo_v2",
+  "name": "playlistismo-player",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,8 +9,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@google/genai": "^1.30.0",
-    "papaparse": "^5.5.3",
     "wix-data": "^0.0.1-security"
   },
   "devDependencies": {
