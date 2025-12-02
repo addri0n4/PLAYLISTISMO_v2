@@ -1,0 +1,95 @@
+import wixData from 'wix-data';
+
+$w.onReady(function () {
+    // Função para atualizar os créditos
+    function updateCredits(videoId) {
+        wixData.query("playlist1014FULL_vr1")
+            .eq("ytID", ytID)
+            .find()
+            .then((results) => {
+                if (results.items.length > 0) {
+                    let item = results.items[0];
+                    $w("#artista").text = `🎤 ${item.artista}`;
+                    $w("#songTitle").text = `🎶 ${item.songTitle}`;
+                    $w("#album").text = `💿 ${item.album}`;
+                    $w("#year").text = `📅 ${item.year}`;
+                    $w("#director").text = `🎬︎ ${item.director}`;
+                } else {
+                    $w("#artista").text = `🎤 artista`;
+                    $w("#songTitle").text = `🎶 songTitle`;
+                    $w("#album").text = `💿 album`;
+                    $w("#year").text = `📅 year`;
+                    $w("#director").text = `🎬︎ director`;
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+
+    // Função para inicializar o player do YouTube e monitorar mudanças de vídeo
+    function initYouTubePlayer() {
+        let player;
+        // Código para inicializar o player do YouTube
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                let videoId = player.getVideoData().video_id;
+                updateCredits(videoId);
+            }
+        }
+
+        // Configurar o player do YouTube
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        // Carregar a API do YouTube
+        if (!window.YT) {
+            let tag = document.createElement('script');
+            tag.src = 'https://www.youtube.com/iframe_api';
+            let firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
+        } else {
+            onYouTubeIframeAPIReady();
+        }
+    }
+
+    // Inicializa o player do YouTube ao carregar a página
+    initYouTubePlayer();
+});
+/*********
+ .jsw file
+ *********
+
+ Backend .jsw files contain functions that run on the server side but can be called from page code and frontend files.
+ Use backend functions to keep code private and hidden from a user's browser. More info:
+
+ https://support.wix.com/en/article/velo-web-modules-calling-backend-code-from-the-frontend
+
+**********/
+
+/*** Call the sample multiply function below by copying the following into your page code:
+
+ import { multiply } from 'backend/multiplication';
+
+ $w.onReady(function () {
+     multiply(4, 5).then(product => {
+         console.log(product);
+     })
+     .catch(error => {
+         console.log(error);
+     });
+ });
+
+***/
+
+// Sample backend code in a multiplication.jsw file:
+
+export function multiply(factor1, factor2) {
+   return factor1 * factor2;
+}

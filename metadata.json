@@ -1,0 +1,5 @@
+{
+  "name": "play_listismo_v2",
+  "description": "A powerful React tool powered by Gemini 2.5 Flash to instantly generate professional README.md files for your projects based on inputs like tech stack, features, and usage.",
+  "requestFramePermissions": []
+}

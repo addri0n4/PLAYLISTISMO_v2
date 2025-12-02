@@ -1,0 +1,102 @@
+/* Base styles managed by Tailwind, specific overrides here */
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #1e293b; 
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #475569; 
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #64748b; 
+  }
+  
+  /* Markdown Preview Styles */
+  .markdown-body h1 { 
+    font-size: 1.875rem; 
+    font-weight: 700; 
+    margin-bottom: 1rem; 
+    margin-top: 1.5rem; 
+    border-bottom: 1px solid #334155; 
+    padding-bottom: 0.5rem; 
+    color: #f8fafc;
+  }
+  
+  .markdown-body h2 { 
+    font-size: 1.5rem; 
+    font-weight: 600; 
+    margin-bottom: 0.75rem; 
+    margin-top: 1.25rem; 
+    color: #a5b4fc; 
+  }
+  
+  .markdown-body h3 { 
+    font-size: 1.25rem; 
+    font-weight: 500; 
+    margin-bottom: 0.5rem; 
+    margin-top: 1rem; 
+    color: #c7d2fe; 
+  }
+  
+  .markdown-body p { 
+    margin-bottom: 0.75rem; 
+    line-height: 1.625; 
+    color: #cbd5e1; 
+  }
+  
+  .markdown-body ul, .markdown-body ol { 
+    list-style-type: disc; 
+    padding-left: 1.5rem; 
+    margin-bottom: 0.75rem; 
+    color: #cbd5e1; 
+  }
+  
+  .markdown-body li { 
+    margin-bottom: 0.25rem; 
+  }
+  
+  .markdown-body code { 
+    background-color: #1e293b; 
+    padding: 0.2rem 0.4rem; 
+    border-radius: 0.25rem; 
+    font-family: 'JetBrains Mono', monospace; 
+    font-size: 0.875em; 
+    color: #e2e8f0; 
+  }
+  
+  .markdown-body pre { 
+    background-color: #0f172a; 
+    padding: 1rem; 
+    border-radius: 0.5rem; 
+    overflow-x: auto; 
+    margin-bottom: 1rem; 
+    border: 1px solid #1e293b; 
+  }
+  
+  .markdown-body pre code { 
+    background-color: transparent; 
+    padding: 0; 
+    color: #e2e8f0; 
+  }
+  
+  .markdown-body blockquote { 
+    border-left: 4px solid #6366f1; 
+    padding-left: 1rem; 
+    color: #94a3b8; 
+    font-style: italic; 
+    background: rgba(30, 41, 59, 0.5); 
+    padding-top: 0.5rem; 
+    padding-bottom: 0.5rem; 
+    border-radius: 0 0.25rem 0.25rem 0; 
+    margin-bottom: 1rem; 
+  }
+
+  .markdown-body strong, .markdown-body b {
+    color: #e2e8f0;
+    font-weight: 600;
+  }

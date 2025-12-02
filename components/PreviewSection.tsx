@@ -1,0 +1,1 @@
+// DELETED: Logic moved to js/ui-handler.js
