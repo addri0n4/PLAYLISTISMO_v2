@@ -1,360 +1,124 @@
-/* --- CONFIGURAÇÕES GERAIS --- */
-:root {
-    --plastic-dark: #202020;
-    --plastic-light: #3a3a3a;
-    --screen-black: #050505;
-    --neon-green: #39ff14;
-    --mtv-pink: #ff00cc;
-    --mtv-yellow: #fefe00;
-}
-
+/* Reset e Base */
 body, html {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
-    background-color: #121212;
-    /* Padrão de fundo sutil (estilo carpete escuro) */
-    background-image: radial-gradient(#2a2a2a 15%, transparent 16%), radial-gradient(#2a2a2a 15%, transparent 16%);
-    background-size: 10px 10px;
-    background-position: 0 0, 5px 5px;
+    background-color: #000;
+    color: #fff;
     font-family: 'Jost', sans-serif;
     overflow: hidden;
-    color: white;
 }
 
-/* Container que segura TV e Controle */
-.living-room {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    gap: 60px; /* Espaço entre TV e Controle */
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-/* --- A TV (ESTRUTURA FÍSICA) --- */
-.tv-set {
-    background: var(--plastic-dark);
-    padding: 25px;
-    border-radius: 30px;
-    /* Sombras complexas para dar volume 3D ao plástico */
-    box-shadow: 
-        inset 2px 2px 5px rgba(255,255,255,0.1), 
-        inset -5px -5px 10px rgba(0,0,0,0.5),    
-        0 30px 60px rgba(0,0,0,0.6);          
-    width: 800px;
-    max-width: 100%;
-    aspect-ratio: 4/3; /* Formato Retro */
+.app-container {
     display: flex;
     flex-direction: column;
-    position: relative;
-    border: 3px solid #111;
+    height: 100vh;
 }
 
-/* Topo da TV */
-.tv-casing-top {
-    height: 40px;
+/* Header / Seletor */
+.top-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+    z-index: 10;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
-    margin-bottom: 10px;
+    box-sizing: border-box;
 }
 
-.brand-badge {
-    font-family: 'Anton', sans-serif;
-    color: #888;
-    background: #111;
-    padding: 2px 8px;
-    border-radius: 2px;
-    font-size: 0.9rem;
-    letter-spacing: 1px;
-    box-shadow: 0 1px 0 rgba(255,255,255,0.2);
-}
-
-.vent-slots {
-    font-family: monospace;
-    color: #000;
-    font-weight: bold;
+.logo {
+    font-weight: 700;
+    font-size: 1.2rem;
     letter-spacing: 2px;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.1);
+    text-transform: uppercase;
 }
 
-/* Moldura grossa ao redor da tela */
-.tv-screen-bezel {
-    background: #000;
+#playlist-selector {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-family: 'Jost', sans-serif;
+    cursor: pointer;
+}
+
+#playlist-selector option {
+    background-color: #000;
+}
+
+/* Video Player Wrapper */
+.video-wrapper {
     flex-grow: 1;
-    border-radius: 50% 50% 45% 45% / 5% 5% 4% 4%; /* Curvatura sutil do tubo */
-    padding: 15px;
     position: relative;
-    overflow: hidden;
-    border: 20px solid var(--plastic-light); 
-    border-bottom-width: 30px;
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
-}
-
-/* A "Tela" de vidro */
-.tv-crt-glass {
     width: 100%;
     height: 100%;
-    position: relative;
-    background: var(--screen-black);
-    border-radius: 20px; /* Cantos arredondados do vidro */
-    overflow: hidden;
-    /* Efeito importante: Máscara para cortar o vídeo nos cantos redondos */
-    -webkit-mask-image: radial-gradient(white, black); 
-    mask-image: radial-gradient(white, black); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #player {
     width: 100%;
     height: 100%;
-    opacity: 0.95; 
-}
-
-/* --- EFEITOS DE TELA (CRT) --- */
-.crt-scanlines {
     position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(
-        to bottom,
-        rgba(255,255,255,0),
-        rgba(255,255,255,0) 50%,
-        rgba(0,0,0,0.2) 50%,
-        rgba(0,0,0,0.2)
-    );
-    background-size: 100% 4px;
-    pointer-events: none;
-    z-index: 10;
-    animation: scrollLines 10s linear infinite;
+    top: 0;
+    left: 0;
 }
 
-.crt-glare {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    /* Reflexo de luz no vidro curvo */
-    background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.08), transparent 30%);
-    pointer-events: none;
-    z-index: 11;
-}
-
-@keyframes scrollLines {
-    0% { background-position: 0 0; }
-    100% { background-position: 0 100%; }
-}
-
-/* Parte de Baixo da TV */
-.tv-casing-bottom {
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 30px;
-    margin-top: 10px;
-}
-
-.speaker-grill {
-    width: 200px;
-    height: 30px;
-    background-image: radial-gradient(#000 40%, transparent 41%);
-    background-size: 5px 5px;
-    border-radius: 4px;
-    background-color: #2a2a2a;
-    box-shadow: inset 1px 1px 2px rgba(0,0,0,0.5);
-}
-
-.controls-area {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.power-led {
-    width: 10px;
-    height: 10px;
-    background-color: #300;
-    border-radius: 50%;
-    transition: 0.3s;
-}
-.power-led.active { 
-    background-color: #00ff00; 
-    box-shadow: 0 0 10px #00ff00; 
-}
-
-.manual-buttons .btn {
-    width: 25px; height: 12px; 
-    background: #111; 
-    display: inline-block; 
-    margin-left: 5px;
-    border-radius: 2px;
-    box-shadow: 0 1px 0 rgba(255,255,255,0.2);
-}
-
-.power-btn {
-    width: 25px; height: 25px;
-    background: #111;
-    border-radius: 50%;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.5), inset 1px 1px 2px rgba(255,255,255,0.1);
-    cursor: pointer;
-}
-
-/* --- CONTROLE REMOTO (MENU LATERAL) --- */
-.remote-control-wrapper {
-    width: 240px;
-    background: #d4d4d4; /* Plástico Bege/Cinza anos 90 */
-    border-radius: 20px;
-    padding: 25px;
-    box-shadow: 15px 15px 40px rgba(0,0,0,0.6), inset -5px -5px 15px rgba(0,0,0,0.1);
-    transform: rotate(-3deg); /* Levemente jogado na mesa */
-    border-bottom: 10px solid #a0a0a0;
-    border-right: 5px solid #a0a0a0;
-}
-
-.remote-header {
-    text-align: center;
-    border-bottom: 2px solid #bbb;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-}
-
-.remote-sensor {
-    width: 60px; height: 20px; background: #4a0000; margin: 0 auto 10px; border-radius: 10px;
-    box-shadow: inset 2px 2px 5px #000;
-}
-
-.remote-header h3 {
-    margin: 0; font-family: 'Anton', sans-serif; color: #666; letter-spacing: 1px;
-}
-
-.channel-display {
-    background: #b8b8b8;
+/* Créditos Overlay - Baseado no CSS original do projeto Wix */
+.credits-overlay {
+    position: fixed;
+    bottom: 40px;
+    left: 40px;
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+    font-size: 18px;
+    line-height: 1.6;
+    opacity: 0; /* Começa invisível */
+    transition: opacity 1s ease-in-out;
+    background: rgba(0,0,0,0.3); /* Ligeiro fundo para legibilidade */
     padding: 15px;
     border-radius: 8px;
-    box-shadow: inset 3px 3px 5px rgba(0,0,0,0.2);
-    margin-bottom: 20px;
-}
-
-.channel-display label {
-    display: block; font-family: 'VT323', monospace; font-size: 1.2rem; color: #333; margin-bottom: 5px;
-}
-
-#playlist-selector {
-    width: 100%;
-    padding: 5px;
-    background: #222;
-    color: var(--neon-green);
-    border: none;
-    font-family: 'VT323', monospace;
-    font-size: 1.3rem;
-    border-radius: 4px;
-    outline: none;
-}
-
-.remote-buttons-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-}
-
-.remote-btn {
-    background: #555;
-    color: white;
-    border: none;
-    padding: 15px 0;
-    border-radius: 6px;
-    font-family: 'Jost', sans-serif;
-    font-weight: bold;
-    font-size: 0.9rem;
-    cursor: pointer;
-    box-shadow: 0 4px 0 #333; /* Efeito 3D botão */
-    transition: all 0.1s;
-}
-
-.remote-btn:active {
-    transform: translateY(4px);
-    box-shadow: 0 0 0 #333;
-}
-
-.remote-btn.vol { background: #777; } /* Botões de volume mais claros */
-.remote-btn.ch { background: #333; }  /* Botões de canal mais escuros */
-
-.logo-sticker {
-    margin-top: 35px;
-    text-align: center;
-    font-family: 'Anton', sans-serif;
-    font-size: 1.5rem;
-    transform: rotate(5deg);
-    background: var(--mtv-yellow);
-    color: #000;
-    padding: 5px 10px;
-    display: inline-block;
-    border: 2px solid #000;
-    box-shadow: 3px 3px 0 rgba(0,0,0,0.3);
-}
-
-/* --- CRÉDITOS DENTRO DA TELA (Estilo MTV Overlay) --- */
-.credits-box {
-    position: absolute;
-    bottom: 25px;
-    left: 25px;
+    border-left: 4px solid #fff;
+    pointer-events: none; /* Permite clicar no vídeo através dos créditos */
     z-index: 20;
-    opacity: 0;
-    transition: opacity 0.5s;
-    font-family: 'Anton', sans-serif;
-    text-transform: uppercase;
-    /* Impede que o mouse atrapalhe o clique no vídeo */
-    pointer-events: none; 
 }
 
-.credits-box.visible { opacity: 1; }
-
-.credit-group {
-    background: rgba(0,0,0,0.75);
-    color: #fff;
-    padding: 3px 12px;
-    margin-bottom: 3px;
-    display: table; /* Faz a caixa se ajustar ao tamanho do texto */
-    border-left: 5px solid var(--mtv-pink);
-    
-    /* Estado inicial da animação */
-    transform: translateX(-30px);
-    opacity: 0;
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+.credits-overlay.visible {
+    opacity: 1;
 }
 
-/* Cascatas de Animação */
-.credits-box.visible .slide-1 { transform: translateX(0); opacity: 1; transition-delay: 0.1s; }
-.credits-box.visible .slide-2 { transform: translateX(0); opacity: 1; transition-delay: 0.2s; }
-.credits-box.visible .slide-3 { transform: translateX(0); opacity: 1; transition-delay: 0.3s; }
-.credits-box.visible .slide-4 { transform: translateX(0); opacity: 1; transition-delay: 0.4s; }
+.credit-line {
+    margin-bottom: 4px;
+}
 
-#artist-name { color: var(--mtv-yellow); font-size: 1.6rem; letter-spacing: 1px; text-shadow: 1px 1px 0 #000; }
-#song-name { font-size: 1.2rem; }
-.detail { font-family: 'Jost', sans-serif; font-size: 0.8rem; color: #ddd; font-weight: 700; }
-.separator { margin: 0 5px; color: var(--mtv-pink); }
+.credit-line span {
+    font-weight: 700;
+}
 
-/* --- RESPONSIVIDADE (MOBILE) --- */
-@media (max-width: 950px) {
-    .living-room {
-        flex-direction: column;
-        height: auto;
-        gap: 30px;
+.credit-line span.light {
+    font-weight: 300;
+}
+
+.icon {
+    display: inline-block;
+    width: 25px;
+    text-align: center;
+    margin-right: 5px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .credits-overlay {
+        left: 10px;
+        bottom: 20px;
+        font-size: 14px;
         padding: 10px;
-    }
-
-    .tv-set {
-        width: 100%;
-        aspect-ratio: 4/3; /* Mantém formato */
-        padding: 15px;
-    }
-
-    .remote-control-wrapper {
-        transform: rotate(0);
-        width: 100%;
-        max-width: 350px;
-        border-right: none;
-        border-bottom: 8px solid #a0a0a0;
     }
 }

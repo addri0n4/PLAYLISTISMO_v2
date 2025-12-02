@@ -1,0 +1,5 @@
+{
+  "name": "playlistismo-player",
+  "description": "Um player de música estilo MTV com créditos animados, migrado de Wix Velo para Vanilla JS.",
+  "requestFramePermissions": []
+}
