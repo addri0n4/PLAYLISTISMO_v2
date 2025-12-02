@@ -1,9 +1,7 @@
-// --- BANCO DE DADOS (Extraído e Consolidado dos arquivos originais) ---
-// Em um app real, isso poderia vir de um JSON externo ou API.
-
+// --- BANCO DE DADOS (Extraído e Consolidado) ---
 const PLAYLIST_DATA = {
     'folkzone': {
-        youtubePlaylistId: 'PL_FolkZone_Playlist_ID_Here', // Se houver um ID real de playlist
+        youtubePlaylistId: 'PL_FolkZone', 
         videos: {
             'TTBDfpPHsak': { artist: 'Rozi Plain', song: 'Help', album: 'Prize', year: '2022', director: 'Noriko Okaku' },
             'gFdUFVz5Z6M': { artist: 'Field Music', song: 'Orion From The Street', album: 'Flat White Moon', year: '2021', director: 'Kevin Dosdale' },
@@ -14,12 +12,11 @@ const PLAYLIST_DATA = {
             'MCPfywB_lVs': { artist: 'Nathy Peluso', song: 'Esmeralda', album: 'single', year: '2017', director: 'Cráneo' },
             'TOy95MU2a80': { artist: 'Angelo De Augustine', song: 'Another Universe', album: 'Toil and Trouble', year: '2023', director: 'Angelo De Augustine' }
         },
-        // Fallback playlist para iniciar
         defaultList: ['TTBDfpPHsak', 'gFdUFVz5Z6M', 'qFxhHFD2LBE', 'QRGqsPBu73I']
     },
     'trip_hop': {
-        videos: {}, // Preencher com dados reais futuramente
-        defaultList: ['zUCtZNoj_ww', 'xmKEd8E9QY0'] // Exemplo
+        videos: {}, 
+        defaultList: ['zUCtZNoj_ww', 'xmKEd8E9QY0'] 
     },
     'mid_pop': {
         videos: {},
@@ -33,11 +30,10 @@ const PLAYLIST_DATA = {
 
 // --- CONFIGURAÇÃO ---
 let player;
-let currentTimers = []; // Para armazenar os IDs dos setTimeouts e limpar quando necessário
+let currentTimers = []; 
 let currentPlaylist = 'folkzone';
 
 // --- INICIALIZAÇÃO DO YOUTUBE API ---
-// Carrega o script da API do YouTube de forma assíncrona
 const tag = document.createElement('script');
 tag.src = "https://www.youtube.com/iframe_api";
 const firstScriptTag = document.getElementsByTagName('script')[0];
@@ -51,8 +47,8 @@ window.onYouTubeIframeAPIReady = function() {
         width: '100%',
         playerVars: {
             'playsinline': 1,
-            'autoplay': 1, // Tenta autoplay (pode ser bloqueado pelo browser)
-            'controls': 1,
+            'autoplay': 1,
+            'controls': 1, // Mantido 1 para UX, mas o design incentiva "assistir"
             'modestbranding': 1,
             'rel': 0
         },
@@ -76,62 +72,45 @@ document.getElementById('playlist-selector').addEventListener('change', (e) => {
 function loadPlaylist(playlistKey) {
     const playlistData = PLAYLIST_DATA[playlistKey];
     if (playlistData && playlistData.defaultList.length > 0) {
-        // Carrega a lista de vídeos
         player.loadPlaylist(playlistData.defaultList);
     }
 }
 
 // --- LÓGICA DE CRÉDITOS ---
-
 function onPlayerStateChange(event) {
-    // YT.PlayerState.PLAYING = 1
     if (event.data == YT.PlayerState.PLAYING) {
         const videoId = player.getVideoData().video_id;
         const duration = player.getDuration();
-        
         handleCreditsForVideo(videoId, duration);
     } else {
-        // Se pausar ou terminar, podemos querer limpar os timers ou esconder os créditos
         if (event.data == YT.PlayerState.ENDED || event.data == YT.PlayerState.PAUSED) {
-            // Opcional: Esconder créditos imediatamente se pausar?
-            // hideCredits(); 
+            // Opcional: limpar créditos ao pausar
         }
     }
 }
 
 function handleCreditsForVideo(videoId, duration) {
-    // 1. Limpar timers anteriores (se o usuário pulou o vídeo rápido)
     clearAllTimers();
-    hideCredits(); // Garante que começa escondido
+    hideCredits(); 
 
-    // 2. Buscar metadados
     const data = findVideoData(videoId);
     
-    if (!data) {
-        console.log("Sem dados para este vídeo:", videoId);
-        return;
-    }
+    if (!data) return;
 
-    // 3. Atualizar o DOM
     updateCreditsDOM(data);
 
-    // 4. Configurar agendamentos (Timings baseados no código original)
-    // Mostrar 10s após o início, esconder 15s depois (Total 25s)
-    const showAtStart = 10 * 1000;
-    const hideAtStart = 25 * 1000;
+    // Timings Estilo MTV:
+    // Começo: Aparece aos 5s, some aos 15s (para deixar ver o clipe iniciar)
+    const showAtStart = 5 * 1000;
+    const hideAtStart = 15 * 1000;
     
-    // Mostrar 30s antes do fim, esconder 5s antes do fim
-    // Verificação de segurança para vídeos muito curtos
-    const showAtEnd = (duration - 30) * 1000;
+    // Fim: Aparece 20s antes do fim, some 5s antes do fim
+    const showAtEnd = (duration - 20) * 1000;
     const hideAtEnd = (duration - 5) * 1000;
 
-    // Agenda: Mostrar Início
     currentTimers.push(setTimeout(() => showCredits(), showAtStart));
-    
-    // Agenda: Esconder Início
     currentTimers.push(setTimeout(() => hideCredits(), hideAtStart));
 
-    // Se o vídeo for longo o suficiente, agenda o final
     if (duration > 40) {
         currentTimers.push(setTimeout(() => showCredits(), showAtEnd));
         currentTimers.push(setTimeout(() => hideCredits(), hideAtEnd));
@@ -139,46 +118,39 @@ function handleCreditsForVideo(videoId, duration) {
 }
 
 function findVideoData(videoId) {
-    // Procura em todas as playlists se necessário, ou foca na atual
-    // Aqui vamos procurar na playlist atual primeiro
     if (PLAYLIST_DATA[currentPlaylist].videos[videoId]) {
         return PLAYLIST_DATA[currentPlaylist].videos[videoId];
     }
     
-    // Fallback: Procura em todas
     for (const key in PLAYLIST_DATA) {
         if (PLAYLIST_DATA[key].videos[videoId]) {
             return PLAYLIST_DATA[key].videos[videoId];
         }
     }
     
-    // Fallback Genérico para demonstração se não encontrar dados
     return {
-        artist: "Desconhecido",
-        song: "Faixa Desconhecida",
-        album: "-",
-        year: "-",
-        director: "-"
+        artist: "Artist Unknown",
+        song: "Track ID Pending",
+        album: "---",
+        year: "199X",
+        director: "---"
     };
 }
 
+// --- MANIPULAÇÃO DO DOM (ATUALIZADO PARA NOVO DESIGN) ---
 function updateCreditsDOM(data) {
     const setText = (id, text) => {
         const el = document.getElementById(id);
-        // Lógica de exceção para "feat" ou "ost" ficarem com fonte mais leve (do código original)
-        if (text && (text.includes('ft.') || text.includes('&') || text.includes('OST'))) {
-             el.className = 'light';
-        } else {
-             el.className = '';
-        }
-        el.textContent = text || '';
+        if (el) el.textContent = text || '';
     };
 
     setText('artist-name', data.artist);
     setText('song-name', data.song);
     setText('album-name', data.album);
-    setText('release-year', data.year);
-    setText('director-name', data.director);
+    
+    // Campos opcionais: Se não houver diretor, colocamos um placeholder ou escondemos
+    setText('release-year', data.year || '----');
+    setText('director-name', data.director ? `DIR: ${data.director}` : '');
 }
 
 function showCredits() {
